@@ -8,7 +8,7 @@ using SAB00900Model.ViewModels;
 namespace SAB00900Front
 {
     public partial class ProductPage : R_Page
-    {
+    { 
         private ProductPageViewModel GridViewModel = new();
 
         private R_Grid<SAB00900DTO> _gridRef;

@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.15" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Realta.FrontComponentCollectionNuget" Version="1.0.1" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.7.0" />
   </ItemGroup>
 
   <ItemGroup>
