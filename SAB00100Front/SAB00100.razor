@@ -1,0 +1,76 @@
+﻿@page "/SAB00100"
+@inherits R_Page
+@inject R_ILocalizer<SAB00100FrontResources.Resources_Dummy_Class> _localizer
+
+<h3>SAB00100</h3>
+
+<R_StackLayout>
+    <R_StackLayout Row>
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_EmployeeId"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">  
+            <R_NumericTextBox @bind-Value="@ViewModel.Data.EmployeeID"></R_NumericTextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_Address"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">
+            <R_TextArea @bind-Value="@ViewModel.Data.Address"></R_TextArea>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_City"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">
+            <R_TextBox @bind-Value="@ViewModel.Data.City"></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_Country"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">
+            <R_TextBox @bind-Value="@ViewModel.Data.Country"></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+    
+    <R_StackLayout Row>
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_FirstNAme"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">
+            <R_TextBox @bind-Value="@ViewModel.Data.FirstName"></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_LastName"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">
+            <R_TextBox @bind-Value="@ViewModel.Data.LastName"></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+    
+    <R_StackLayout Row>
+        <R_ItemLayout xs="2">
+            <R_Find R_Before_Open_Find="R_Before_Open_Find"
+                    R_After_Open_Find="R_After_Open_Find">
+                @_localizer["_Find"]
+            </R_Find>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+</R_StackLayout>
+
+
+@code {
+
+}

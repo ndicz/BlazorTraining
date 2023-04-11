@@ -1,0 +1,25 @@
+﻿@inherits R_Page
+@inject R_ILocalizer<SAB00100FrontResources.Resources_Dummy_Class> ILocalizer
+
+<R_StackLayout>
+    <R_Grid @ref="@GridRef" 
+            DataSource="_viewModel.EmployeeList" 
+            R_ServiceGetListRecord="R_ServiceGetListRecord">
+        <R_GridColumns>
+            <R_GridNumericColumn FieldName="EmployeeID"
+                                 HeaderText="@ILocalizer["_EmployeeId"]">
+            </R_GridNumericColumn>
+
+            <R_GridNumericColumn FieldName="FirstName"
+                                 HeaderText="@ILocalizer["_FirstName"]">
+            </R_GridNumericColumn>
+
+            <R_GridNumericColumn FieldName="LastName"
+                                 HeaderText="@ILocalizer["_LastName"]">
+            </R_GridNumericColumn>
+        </R_GridColumns>
+    </R_Grid>
+</R_StackLayout>
+@code {
+
+}
