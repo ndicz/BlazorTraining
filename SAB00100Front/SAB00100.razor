@@ -2,75 +2,111 @@
 @inherits R_Page
 @inject R_ILocalizer<SAB00100FrontResources.Resources_Dummy_Class> _localizer
 
-<h3>SAB00100</h3>
-
 <R_StackLayout>
-    <R_StackLayout Row>
+    <R_StackLayout Row="true">
         <R_ItemLayout xs="2">
-            <R_Label>@_localizer["_EmployeeId"]</R_Label>
+            <R_Label>@_localizer["_EmployeeID"]</R_Label>
         </R_ItemLayout>
-        <R_ItemLayout xs="4">  
-            <R_NumericTextBox @bind-Value="@ViewModel.Data.EmployeeID"></R_NumericTextBox>
+        <R_ItemLayout xs="4">
+            <R_NumericTextBox @bind-Value="@_viewModel.Data.EmployeeID"
+                              Enabled="false"></R_NumericTextBox>
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row>
+    <R_StackLayout Row="true">
         <R_ItemLayout xs="2">
-            <R_Label>@_localizer["_Address"]</R_Label>
+            <R_Label>@_localizer["_FirstName"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout xs="4">
-            <R_TextArea @bind-Value="@ViewModel.Data.Address"></R_TextArea>
+            <R_TextBox @bind-Value="@_viewModel.Data.FirstName"
+                       R_ConductorSource="@_rConductorRef"
+                       R_EnableAdd R_EnableEdit></R_TextBox>
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row>
-        <R_ItemLayout xs="2">
-            <R_Label>@_localizer["_City"]</R_Label>
-        </R_ItemLayout>
-        <R_ItemLayout xs="4">
-            <R_TextBox @bind-Value="@ViewModel.Data.City"></R_TextBox>
-        </R_ItemLayout>
-    </R_StackLayout>
-
-    <R_StackLayout Row>
-        <R_ItemLayout xs="2">
-            <R_Label>@_localizer["_Country"]</R_Label>
-        </R_ItemLayout>
-        <R_ItemLayout xs="4">
-            <R_TextBox @bind-Value="@ViewModel.Data.Country"></R_TextBox>
-        </R_ItemLayout>
-    </R_StackLayout>
-    
-    <R_StackLayout Row>
-        <R_ItemLayout xs="2">
-            <R_Label>@_localizer["_FirstNAme"]</R_Label>
-        </R_ItemLayout>
-        <R_ItemLayout xs="4">
-            <R_TextBox @bind-Value="@ViewModel.Data.FirstName"></R_TextBox>
-        </R_ItemLayout>
-    </R_StackLayout>
-
-    <R_StackLayout Row>
+    <R_StackLayout Row="true">
         <R_ItemLayout xs="2">
             <R_Label>@_localizer["_LastName"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout xs="4">
-            <R_TextBox @bind-Value="@ViewModel.Data.LastName"></R_TextBox>
-        </R_ItemLayout>
-    </R_StackLayout>
-    
-    <R_StackLayout Row>
-        <R_ItemLayout xs="2">
-            <R_Find R_Before_Open_Find="R_Before_Open_Find"
-                    R_After_Open_Find="R_After_Open_Find">
-                @_localizer["_Find"]
-            </R_Find>
+            <R_TextBox @bind-Value="@_viewModel.Data.LastName"
+                       R_ConductorSource="@_rConductorRef"
+                       R_EnableAdd R_EnableEdit></R_TextBox>
         </R_ItemLayout>
     </R_StackLayout>
 
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_Address"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">
+            <R_TextArea @bind-Value="@_viewModel.Data.Address"
+                        R_ConductorSource="@_rConductorRef"
+                        R_EnableAdd R_EnableEdit></R_TextArea>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_Country"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">
+            <R_TextBox @bind-Value="@_viewModel.Data.Country"
+                       R_ConductorSource="@_rConductorRef"
+                       R_EnableAdd R_EnableEdit></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+    <R_StackLayout Row="true">
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_City"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">
+            <R_TextBox @bind-Value="@_viewModel.Data.City"
+                       R_ConductorSource="@_rConductorRef"
+                       R_EnableAdd R_EnableEdit></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
+
+   
+
+<R_StackLayout Row="true">
+    <R_ItemLayout xs="1">
+        <R_AddButton R_Conductor="@_rConductorRef"></R_AddButton>
+    </R_ItemLayout>
+
+    <R_ItemLayout xs="1">
+        <R_EditButton R_Conductor="@_rConductorRef"></R_EditButton>
+    </R_ItemLayout>
+
+    <R_ItemLayout xs="1">
+        <R_DeleteButton R_Conductor="@_rConductorRef"></R_DeleteButton>
+    </R_ItemLayout>
+
+    <R_ItemLayout xs="1">
+        <R_SaveButton R_Conductor="@_rConductorRef"></R_SaveButton>
+    </R_ItemLayout>
+
+    <R_ItemLayout xs="1">
+        <R_CancelButton R_Conductor="@_rConductorRef"></R_CancelButton>
+    </R_ItemLayout>
+
+    <R_ItemLayout xs="1">
+        <R_Find R_Before_Open_Find="R_Before_Open_Find"
+                R_After_Open_Find="R_After_Open_Find"
+                R_ConductorSource="_rConductorRef"
+                R_EnableOther>@_localizer["_FindEmployee"]</R_Find>
+    </R_ItemLayout>
+
+</R_StackLayout>    
 </R_StackLayout>
 
+<R_Conductor @ref="_rConductorRef"
+             R_IsHeader
+             R_ViewModel="_viewModel"
+             R_ServiceGetRecord="R_ServiceGetRecordAsync"
+             R_Validation="R_Validation"
+             R_ServiceSave="R_ServiceSaveAsync"
+             R_ServiceDelete="R_ServiceDeleteAsync">
 
-@code {
-
-}
+</R_Conductor>

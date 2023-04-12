@@ -2,6 +2,8 @@
 using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Helpers;
+using R_CommonFrontBackAPI;
 using SAB00700Common.DTOs;
 using SAB00700Model;
 
@@ -12,10 +14,7 @@ namespace SAB00700Front
         private SAB00700ViewModel _viewModel = new();
         private R_Conductor _conductorRef;
 
-        private R_Grid<SAB00700DTO> _gridRef;
-
-        //[Inject] public R_ContextHeader ContextHeader { get; set; }
-        //[Inject] public IClientHelperInitiator ClientHelper { get; set; }
+        private R_Grid<SAB00700GridDTO> _gridRef;
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -55,8 +54,10 @@ namespace SAB00700Front
 
             try
             {
-                var loParam = (SAB00700DTO)eventArgs.Data;
-                eventArgs.Result = await _viewModel.GetCategoryById(loParam.CategoryID);
+                var loParam = R_FrontUtility.ConvertObjectToObject<SAB00700DTO>(eventArgs.Data);
+
+                await _viewModel.GetCategoryById(loParam.CategoryID);
+                eventArgs.Result = _viewModel.Category;
             }
             catch (Exception ex)
             {
@@ -95,7 +96,9 @@ namespace SAB00700Front
             try
             {
                 var loParam = (SAB00700DTO)eventArgs.Data;
-                eventArgs.Result = await _viewModel.SaveCategory(loParam, eventArgs.ConductorMode);
+                await _viewModel.SaveCategory(loParam, (eCRUDMode)eventArgs.ConductorMode);
+
+                eventArgs.Result = _viewModel.Category;
             }
             catch (Exception ex)
             {
@@ -120,6 +123,11 @@ namespace SAB00700Front
             }
 
             loEx.ThrowExceptionIfErrors();
+        }
+
+        private void R_ConvertToGridEntity(R_ConvertToGridEntityEventArgs eventArgs)
+        {
+            eventArgs.GridData = R_FrontUtility.ConvertObjectToObject<SAB00700GridDTO>(eventArgs.Data);
         }
     }
 }

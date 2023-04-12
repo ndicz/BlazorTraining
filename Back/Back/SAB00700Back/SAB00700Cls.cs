@@ -64,7 +64,11 @@ namespace SAB00700Back
                 {
                     lcQuery = "INSERT INTO Categories (CategoryName, Description) ";
                     lcQuery += $"VALUES ('{poNewEntity.CategoryName}', '{poNewEntity.Description}') ";
-                    loDb.SqlExecNonQuery(lcQuery, loConn, true);
+                    lcQuery += "SELECT SCOPE_IDENTITY()";
+
+                    var liResult = loDb.SqlExecObjectQuery<decimal>(lcQuery, loConn, true);
+
+                    poNewEntity.CategoryID = Convert.ToInt32(liResult.FirstOrDefault());
 
                     return;
                 }
@@ -81,10 +85,10 @@ namespace SAB00700Back
             loEx.ThrowExceptionIfErrors();
         }
 
-        public List<SAB00700DTO> GetCategories()
+        public List<SAB00700GridDTO> GetCategories()
         {
             var loEx = new R_Exception();
-            List<SAB00700DTO> loResult = null;
+            List<SAB00700GridDTO> loResult = null;
 
             try
             {
@@ -92,7 +96,7 @@ namespace SAB00700Back
                 var loConn = loDb.GetConnection("NorthwindConnectionString");
 
                 var lcQuery = $"SELECT * FROM Categories (NOLOCK)";
-                loResult = loDb.SqlExecObjectQuery<SAB00700DTO>(lcQuery, loConn, true);
+                loResult = loDb.SqlExecObjectQuery<SAB00700GridDTO>(lcQuery, loConn, true);
             }
             catch (Exception ex)
             {

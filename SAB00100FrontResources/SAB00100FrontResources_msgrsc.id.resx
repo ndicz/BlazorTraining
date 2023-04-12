@@ -132,10 +132,16 @@
   <data name="_Find" xml:space="preserve">
     <value>Cari Orang</value>
   </data>
+  <data name="_FindEmployee" xml:space="preserve">
+    <value>Cari Manusia</value>
+  </data>
   <data name="_FirstName" xml:space="preserve">
     <value>Nama Pertama</value>
   </data>
   <data name="_LastName" xml:space="preserve">
     <value>Nama TErakhir</value>
+  </data>
+  <data name="_Select" xml:space="preserve">
+    <value>Pilih</value>
   </data>
 </root>

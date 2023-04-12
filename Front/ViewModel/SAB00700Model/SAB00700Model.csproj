@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SAB00700Client.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Back\Common\SAB00700Common\SAB00700Common.csproj" />
   </ItemGroup>
 

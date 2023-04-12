@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Back\Common\SAB00100Common\SAB00100Common.csproj" />
+    <ProjectReference Include="..\SAB00100FrontResources\SAB00100FrontResources.csproj" />
   </ItemGroup>
 
   <ItemGroup>

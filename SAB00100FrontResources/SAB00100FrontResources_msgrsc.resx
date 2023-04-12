@@ -132,10 +132,16 @@
   <data name="_Find" xml:space="preserve">
     <value>Search Employee</value>
   </data>
+  <data name="_FindEmployee" xml:space="preserve">
+    <value>Find Employee</value>
+  </data>
   <data name="_FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
   <data name="_LastName" xml:space="preserve">
     <value>Last Name</value>
+  </data>
+  <data name="_Select" xml:space="preserve">
+    <value>Select</value>
   </data>
 </root>

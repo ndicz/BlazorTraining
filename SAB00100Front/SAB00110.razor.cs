@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using R_BlazorFrontEnd.Controls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Exceptions;
@@ -34,7 +30,7 @@ namespace SAB00100Front
             var loEx = new R_Exception();
             try
             {
-                await _viewModel.GetAllEmployeAsync();
+                await _viewModel.GetAllEmployeeAsync();
             }
             catch (Exception e)
             {
@@ -43,6 +39,10 @@ namespace SAB00100Front
             loEx.ThrowExceptionIfErrors();
         }
 
-
+        public async Task Button_OnClickAsync()
+        {
+            var loData = GridRef.GetCurrentData();
+            await this.Close(true, loData);
+        }
     }
 }
