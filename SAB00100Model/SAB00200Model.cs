@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using R_APIClient;
 using R_BlazorFrontEnd.Exceptions;
@@ -24,6 +25,11 @@ namespace SAB00200Model
         }
 
         public SAB00100ListEmployeeDTO GetAllEmployee()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncEnumerable<SAB00100DTO> GetEmployeeStream()
         {
             throw new NotImplementedException();
         }

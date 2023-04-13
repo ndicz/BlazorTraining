@@ -100,7 +100,7 @@ namespace SAB00100Controller
 
             return loRtn;
         }
-
+        [HttpPost]
         public IAsyncEnumerable<SAB00100DTO> GetEmployeeStream()
         {
             var loEx = new R_Exception();
@@ -120,10 +120,6 @@ namespace SAB00100Controller
             loEx.ThrowExceptionIfErrors();
             return loRtn;
         }
-
-        [HttpPost]
-
-   
 
         private async IAsyncEnumerable<SAB00100DTO> GetEmpStream(List<SAB00100DTO> poParam)
         {

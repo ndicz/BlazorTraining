@@ -24,8 +24,9 @@ namespace SAB00100Model
 
             try
             {
-                var loResult = await _model.GetAllEmployeeAsync();
-                EmployeeList = new ObservableCollection<SAB00100GridDTO>(loResult.Data);
+                var loResult = await _model.GetAllEmployeeStreamAsync();
+                var loCollection = R_FrontUtility.ConvertCollectionToCollection<SAB00100GridDTO>(loResult);
+                EmployeeList = new ObservableCollection<SAB00100GridDTO>(loCollection);
             }
             catch (Exception e)
             {
