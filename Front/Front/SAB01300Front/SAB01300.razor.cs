@@ -4,6 +4,7 @@ using R_BlazorFrontEnd.Controls.DataControls;
 using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
+using R_CommonFrontBackAPI;
 using SAB01300Common.DTOs;
 using SAB01300Model.ViewModels;
 
@@ -11,7 +12,7 @@ namespace SAB01300Front
 {
     public partial class SAB01300 : R_Page
     {
-        private SAB01300ViewModel ViewModel = new();
+        private SAB01300ViewModel CategoryViewModel = new();
         private R_Grid<SAB01300DTO> _gridRef;
         private R_ConductorGrid _conGridCategoryRef;
 
@@ -41,7 +42,7 @@ namespace SAB01300Front
 
             try
             {
-                await ViewModel.GetCategoryList();
+                await CategoryViewModel.GetCategoryList();
             }
             catch (Exception ex)
             {
@@ -68,9 +69,9 @@ namespace SAB01300Front
             try
             {
                 var loParam = (SAB01300DTO)eventArgs.Data;
-                var loResult = await ViewModel.GetCategory(loParam.CategoryID);
+                await CategoryViewModel.GetCategory(loParam.CategoryID);
 
-                eventArgs.Result = loResult;
+                eventArgs.Result = CategoryViewModel.Category;
             }
             catch (Exception ex)
             {
@@ -86,7 +87,8 @@ namespace SAB01300Front
 
             try
             {
-                eventArgs.Result = await ViewModel.SaveCategory((SAB01300DTO)eventArgs.Data, (R_eConductorMode)eventArgs.ConductorMode);
+                await CategoryViewModel.SaveCategory((SAB01300DTO)eventArgs.Data, (eCRUDMode)eventArgs.ConductorMode);
+                eventArgs.Result = CategoryViewModel.Category;
             }
             catch (Exception ex)
             {
@@ -103,7 +105,7 @@ namespace SAB01300Front
             try
             {
                 var loData = (SAB01300DTO)eventArgs.Data;
-                await ViewModel.DeleteCategory(loData.CategoryID);
+                await CategoryViewModel.DeleteCategory(loData.CategoryID);
             }
             catch (Exception ex)
             {
@@ -139,7 +141,9 @@ namespace SAB01300Front
             try
             {
                 var loParam = (SAB01310DTO)eventArgs.Data;
-                eventArgs.Result = await ProductViewModel.GetProductById(loParam.ProductID);
+                await ProductViewModel.GetProductById(loParam.ProductID);
+
+                eventArgs.Result = ProductViewModel.Product;
             }
             catch (Exception ex)
             {

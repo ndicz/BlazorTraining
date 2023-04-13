@@ -123,5 +123,62 @@ namespace SAB01300Controller
 
             return loRtn;
         }
+        [HttpPost]
+        public IAsyncEnumerable<SAB01310DTO> GetAllProductStream()
+        {
+            var loEx = new R_Exception();
+            IAsyncEnumerable<SAB01310DTO> loRtn = null;
+
+            try
+            {
+                var loCls = new SAB01310Cls();
+
+                var loResult = loCls.GetAllProduct();
+
+                loRtn = GetProductStream(loResult);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loRtn;
+        }
+        [HttpPost]
+
+        public IAsyncEnumerable<SAB01310DTO> GetAllProductByCategoryStream()
+        {
+            var loEx = new R_Exception();
+            IAsyncEnumerable<SAB01310DTO> loRtn = null;
+
+            try
+            {
+                var liCategoryId = R_Utility.R_GetStreamingContext<int>(ContextConstant.CATEGORY_ID);
+                var loCls = new SAB01310Cls();
+
+                var loResult = loCls.GetAllProductByCategory(liCategoryId);
+
+                loRtn = GetProductStream(loResult);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loRtn;
+        }
+        [HttpPost]
+        private async IAsyncEnumerable<SAB01310DTO> GetProductStream(List<SAB01310DTO> poParameter)
+        {
+            foreach (SAB01310DTO item in poParameter)
+            {
+                await Task.Delay(10);
+                yield return item;
+            }
+        }
     }
 }

@@ -17,12 +17,11 @@
             <R_GridTextColumn FieldName="ContactName" HeaderText="Contact Name" R_EnableAdd R_EnableEdit></R_GridTextColumn>
         </R_GridColumns>
     </R_Grid>
-</R_StackLayout>
+</R_StackLayout>    
 
 <R_ConductorGrid @ref="@_conGridCustomerRef"
                  R_ViewModel="@CustomerViewModel"
                  R_IsHeader 
-                 R_Display="@Grid_Display" 
                  R_ServiceGetRecord="@Grid_ServiceGetRecord" 
                  R_BeforeEdit="@Grid_BeforeEdit" 
                  R_BeforeCancel="@Grid_BeforeCancel" 
@@ -33,9 +32,6 @@
                  R_ServiceSave="@Grid_ServiceSave" 
                  R_AfterSave="@Grid_AfterSave" 
                  R_BeforeDelete="@Grid_BeforeDelete" 
-                 R_ServiceDelete="@Grid_ServiceDelete" 
+                 R_ServiceDelete="@Grid_ServiceDelete"
+                 R_Display="@R_Display"
                  R_AfterDelete="@Grid_AfterDelete"></R_ConductorGrid>
-
-@code {
-    
-}

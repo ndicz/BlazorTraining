@@ -3,18 +3,22 @@ using System.Threading.Tasks;
 using R_APIClient;
 using R_BlazorFrontEnd.Exceptions;
 using R_BusinessObjectFront;
+using R_CommonFrontBackAPI;
+using SAB00600Common;
+using SAB00600Common.DTOs;
 using SAB00100Common;
 using SAB00100Common.DTOs;
 
-namespace SAB00100Model
+
+namespace SAB00200Model
 {
-    public class SAB00100Model : R_BusinessObjectServiceClientBase<SAB00100DTO>, ISAB00100
+    public class SAB00200Model : R_BusinessObjectServiceClientBase<SAB00100DTO>, ISAB00100
     {
-        private const string DEFAULT_HTTP = "R_DefaultServiceUrl";
+        private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
         private const string DEFAULT_SERVICEPOINT_NAME = "api/SAB00100";
 
-        public SAB00100Model(
-            string pcHttpClientName = DEFAULT_HTTP,
+        public SAB00200Model(
+            string pcHttpClientName = DEFAULT_HTTP_NAME,
             string pcRequestServiceEndPoint = DEFAULT_SERVICEPOINT_NAME,
             bool plSendWithContext = true,
             bool plSendWithToken = true) :
@@ -30,24 +34,26 @@ namespace SAB00100Model
         public async Task<SAB00100ListEmployeeDTO> GetAllEmployeeAsync()
         {
             var loEx = new R_Exception();
-            SAB00100ListEmployeeDTO loRtn = null;
+            SAB00100ListEmployeeDTO loResult = null;
 
             try
             {
-                R_HTTPClientWrapper.httpClientName = _HttpClientName;
-                loRtn = await R_HTTPClientWrapper.R_APIRequestObject<SAB00100ListEmployeeDTO>(
+                R_HTTPClientWrapper.httpClientName = DEFAULT_HTTP_NAME;
+                loResult = await R_HTTPClientWrapper.R_APIRequestObject<SAB00100ListEmployeeDTO>(
                     _RequestServiceEndPoint,
-                    nameof(ISAB00100.GetAllEmployee),
+                    nameof(ISAB00100),
                     _SendWithContext,
                     _SendWithToken);
-
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                loEx.Add(e);
+                loEx.Add(ex);
             }
+
             loEx.ThrowExceptionIfErrors();
-            return loRtn;
+
+            return loResult;
         }
+
     }
 }

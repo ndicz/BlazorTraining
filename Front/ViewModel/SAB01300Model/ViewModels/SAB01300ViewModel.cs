@@ -1,5 +1,4 @@
 ﻿using R_BlazorFrontEnd;
-using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
 using R_CommonFrontBackAPI;
 using SAB01300Common.DTOs;
@@ -15,14 +14,16 @@ namespace SAB01300Model.ViewModels
 
         public ObservableCollection<SAB01300DTO> CategoryList { get; set; } = new ObservableCollection<SAB01300DTO>();
 
+        public SAB01300DTO Category = new SAB01300DTO();
+
         public async Task GetCategoryList()
         {
             var loEx = new R_Exception();
 
             try
             {
-                var loResult = await _SAB01300Model.GetCategoryListAsync();
-                CategoryList = new ObservableCollection<SAB01300DTO>(loResult);
+                var loResult = await _SAB01300Model.GetAllCategoryAsync();
+                CategoryList = new ObservableCollection<SAB01300DTO>(loResult.Data);
             }
             catch (Exception ex)
             {
@@ -32,15 +33,16 @@ namespace SAB01300Model.ViewModels
             loEx.ThrowExceptionIfErrors();
         }
 
-        public async Task<SAB01300DTO> GetCategory(int piCategoryId)
+        public async Task GetCategory(int piCategoryId)
         {
             var loEx = new R_Exception();
-            SAB01300DTO loResult = null;
 
             try
             {
                 var loParam = new SAB01300DTO { CategoryID = piCategoryId };
-                loResult = await _SAB01300Model.GetCategoryAsync(loParam);
+                var loResult = await _SAB01300Model.R_ServiceGetRecordAsync(loParam);
+
+                Category = loResult;
             }
             catch (Exception ex)
             {
@@ -48,18 +50,17 @@ namespace SAB01300Model.ViewModels
             }
 
             loEx.ThrowExceptionIfErrors();
-
-            return loResult;
         }
 
-        public async Task<SAB01300DTO> SaveCategory(SAB01300DTO poNewEntity, R_eConductorMode peConductorMode)
+        public async Task SaveCategory(SAB01300DTO poNewEntity, eCRUDMode peCRUDMode)
         {
             var loEx = new R_Exception();
-            SAB01300DTO loResult = null;
 
             try
             {
-                loResult = await _SAB01300Model.SaveCategoryAsync(poNewEntity, (eCRUDMode)peConductorMode);
+                var loResult = await _SAB01300Model.R_ServiceSaveAsync(poNewEntity, peCRUDMode);
+
+                Category = loResult;
             }
             catch (Exception ex)
             {
@@ -67,8 +68,6 @@ namespace SAB01300Model.ViewModels
             }
 
             loEx.ThrowExceptionIfErrors();
-
-            return loResult;
         }
 
         public async Task DeleteCategory(int categoryId)
@@ -78,7 +77,7 @@ namespace SAB01300Model.ViewModels
             try
             {
                 var loParam = new SAB01300DTO { CategoryID = categoryId };
-                await _SAB01300Model.DeleteCategoryAsync(loParam);
+                await _SAB01300Model.R_ServiceDeleteAsync(loParam);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 ﻿using R_CommonFrontBackAPI;
 using SAB01300Common.DTOs;
+using System.Collections.Generic;
 
 namespace SAB01300Common
 {
@@ -8,5 +9,9 @@ namespace SAB01300Common
         SAB01300ListDTO<SAB01310DTO> GetAllProduct();
 
         SAB01300ListDTO<SAB01310DTO> GetAllProductByCategory(int piCategoryId);
+
+        IAsyncEnumerable<SAB01310DTO> GetAllProductStream();
+
+        IAsyncEnumerable<SAB01310DTO> GetAllProductByCategoryStream();
     }
 }

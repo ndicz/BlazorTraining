@@ -1,11 +1,39 @@
 ﻿@page "/SAB00100"
-@inherits R_Page
-@inject R_ILocalizer<SAB00100FrontResources.Resources_Dummy_Class> _localizer
+@using SAB00100Common.DTOs
+@inherits R_BlazorFrontEnd.Controls.Base.R_Page
+@inject R_ILocalizer<Resources_Dummy_Class> _localizer
+
+<R_StackLayout Spacing="3" Class="mb-4">
+    <R_StackLayout>
+        <R_Grid @ref="@_gridRef"
+                DataSource="@_viewModel.EmployeeList"
+                Pageable="true"
+                R_ConductorSource="@conductRef"
+                R_GridType="@R_eGridType.Navigator"
+                R_ServiceGetListRecord="R_ServiceGetListRecordAsync"
+                PageSize="5">
+            <R_GridColumns>
+                <R_GridNumericColumn FieldName=@nameof(SAB00100GridDTO.EmployeeID)
+                                     HeaderText=@_localizer["_EmployeeID"]></R_GridNumericColumn>
+
+                <R_GridTextColumn FieldName=@nameof(SAB00100GridDTO.FirstName)
+                                  HeaderText=@_localizer["_FirstName"]></R_GridTextColumn>
+
+                <R_GridTextColumn FieldName=@nameof(SAB00100GridDTO.LastName)
+                                  HeaderText=@_localizer["_LastName"]></R_GridTextColumn>
+            </R_GridColumns>
+        </R_Grid>
+    </R_StackLayout>
+</R_StackLayout>
 
 <R_StackLayout>
-    <R_StackLayout Row="true">
+    <R_StackLayout Row="true" Spacing="3">
+        <h2>Employee Detail</h2>
+    </R_StackLayout>
+
+    <R_StackLayout Row>
         <R_ItemLayout xs="2">
-            <R_Label>@_localizer["_EmployeeID"]</R_Label>
+            <R_Label>@_localizer["_EmployeeId"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout xs="4">
             <R_NumericTextBox @bind-Value="@_viewModel.Data.EmployeeID"
@@ -13,100 +41,111 @@
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout xs="2">
             <R_Label>@_localizer["_FirstName"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout xs="4">
             <R_TextBox @bind-Value="@_viewModel.Data.FirstName"
-                       R_ConductorSource="@_rConductorRef"
-                       R_EnableAdd R_EnableEdit></R_TextBox>
+                       R_ConductorSource="conductRef"
+                       R_EnableAdd
+                       R_EnableEdit></R_TextBox>
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout xs="2">
             <R_Label>@_localizer["_LastName"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout xs="4">
             <R_TextBox @bind-Value="@_viewModel.Data.LastName"
-                       R_ConductorSource="@_rConductorRef"
-                       R_EnableAdd R_EnableEdit></R_TextBox>
+                       R_ConductorSource="conductRef"
+                       R_EnableAdd
+                       R_EnableEdit></R_TextBox>
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout xs="2">
             <R_Label>@_localizer["_Address"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout xs="4">
             <R_TextArea @bind-Value="@_viewModel.Data.Address"
-                        R_ConductorSource="@_rConductorRef"
-                        R_EnableAdd R_EnableEdit></R_TextArea>
+                        R_ConductorSource="conductRef"
+                        R_EnableAdd
+                        R_EnableEdit></R_TextArea>
         </R_ItemLayout>
     </R_StackLayout>
 
-    <R_StackLayout Row="true">
-        <R_ItemLayout xs="2">
-            <R_Label>@_localizer["_Country"]</R_Label>
-        </R_ItemLayout>
-        <R_ItemLayout xs="4">
-            <R_TextBox @bind-Value="@_viewModel.Data.Country"
-                       R_ConductorSource="@_rConductorRef"
-                       R_EnableAdd R_EnableEdit></R_TextBox>
-        </R_ItemLayout>
-    </R_StackLayout>
-
-    <R_StackLayout Row="true">
+    <R_StackLayout Row>
         <R_ItemLayout xs="2">
             <R_Label>@_localizer["_City"]</R_Label>
         </R_ItemLayout>
         <R_ItemLayout xs="4">
             <R_TextBox @bind-Value="@_viewModel.Data.City"
-                       R_ConductorSource="@_rConductorRef"
-                       R_EnableAdd R_EnableEdit></R_TextBox>
+                       R_ConductorSource="conductRef"
+                       R_EnableAdd
+                       R_EnableEdit></R_TextBox>
         </R_ItemLayout>
     </R_StackLayout>
 
-   
+    <R_StackLayout Row>
+        <R_ItemLayout xs="2">
+            <R_Label>@_localizer["_Country"]</R_Label>
+        </R_ItemLayout>
+        <R_ItemLayout xs="4">
+            <R_TextBox @bind-Value="@_viewModel.Data.Country"
+                       R_ConductorSource="conductRef"
+                       R_EnableAdd
+                       R_EnableEdit></R_TextBox>
+        </R_ItemLayout>
+    </R_StackLayout>
 
-<R_StackLayout Row="true">
-    <R_ItemLayout xs="1">
-        <R_AddButton R_Conductor="@_rConductorRef"></R_AddButton>
-    </R_ItemLayout>
+    <R_StackLayout Row>
 
-    <R_ItemLayout xs="1">
-        <R_EditButton R_Conductor="@_rConductorRef"></R_EditButton>
-    </R_ItemLayout>
+        <R_ItemLayout xs="2">
+            <R_AddButton R_Conductor="@conductRef"></R_AddButton>
+        </R_ItemLayout>
 
-    <R_ItemLayout xs="1">
-        <R_DeleteButton R_Conductor="@_rConductorRef"></R_DeleteButton>
-    </R_ItemLayout>
+        <R_ItemLayout xs="2">
+            <R_EditButton R_Conductor="@conductRef"></R_EditButton>
+        </R_ItemLayout>
 
-    <R_ItemLayout xs="1">
-        <R_SaveButton R_Conductor="@_rConductorRef"></R_SaveButton>
-    </R_ItemLayout>
+        <R_ItemLayout xs="2">
+            <R_DeleteButton R_Conductor="@conductRef"></R_DeleteButton>
+        </R_ItemLayout>
 
-    <R_ItemLayout xs="1">
-        <R_CancelButton R_Conductor="@_rConductorRef"></R_CancelButton>
-    </R_ItemLayout>
+        <R_ItemLayout xs="2">
+            <R_SaveButton R_Conductor="@conductRef"></R_SaveButton>
+        </R_ItemLayout>
 
-    <R_ItemLayout xs="1">
-        <R_Find R_Before_Open_Find="R_Before_Open_Find"
-                R_After_Open_Find="R_After_Open_Find"
-                R_ConductorSource="_rConductorRef"
-                R_EnableOther>@_localizer["_FindEmployee"]</R_Find>
-    </R_ItemLayout>
+        <R_ItemLayout xs="2">
+            <R_CancelButton R_Conductor="@conductRef"></R_CancelButton>
+        </R_ItemLayout>
 
-</R_StackLayout>    
+        <R_ItemLayout xs="2">
+            <R_Find R_Before_Open_Find="R_Before_Open_Find"
+                    R_After_Open_Find="R_After_Open_FindAsync"
+                    R_ConductorSource="@conductRef"
+                    R_EnableOther>
+                @_localizer["_FindEmployee"]
+            </R_Find>
+        </R_ItemLayout>
+
+    </R_StackLayout>
+
 </R_StackLayout>
 
-<R_Conductor @ref="_rConductorRef"
+
+<R_Conductor @ref="@conductRef"
              R_IsHeader
-             R_ViewModel="_viewModel"
+             R_ViewModel="@_viewModel"
              R_ServiceGetRecord="R_ServiceGetRecordAsync"
              R_Validation="R_Validation"
-             R_ServiceSave="R_ServiceSaveAsync"
-             R_ServiceDelete="R_ServiceDeleteAsync">
+             R_ServiceSave="R_ServiceSave"
+             R_AfterSave="R_AfterSaveAsync"
+             R_AfterAdd="R_AfterAdd"
+             R_ServiceDelete="R_ServiceDelete">
+
 
 </R_Conductor>

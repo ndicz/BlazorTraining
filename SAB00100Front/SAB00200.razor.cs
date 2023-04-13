@@ -5,19 +5,20 @@ using R_BlazorFrontEnd.Controls.Events;
 using R_BlazorFrontEnd.Controls.MessageBox;
 using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
+using R_BlazorFrontEnd.Helpers;
 using R_CommonFrontBackAPI;
-using SAB00600Common.DTOs;
-using SAB00600Model;
+using SAB00100Common.DTOs;
+using SAB00100Model;
 
-namespace SAB00600Front
+namespace SAB00100Front
 {
-    public partial class SAB00600 : R_Page
+    public partial class SAB00200 
     {
-        private SAB00600ViewModel CustomerViewModel = new();
+        private SAB00200ViewModel EmployeeViewModel = new();
 
         private R_ConductorGrid _conGridCustomerRef;
 
-        private R_Grid<SAB00600DTO> _gridRef;
+        private R_Grid<SAB00100GridDTO> _gridRef200;
 
         protected override async Task R_Init_From_Master(object poParameter)
         {
@@ -25,7 +26,7 @@ namespace SAB00600Front
 
             try
             {
-                await _gridRef.R_RefreshGrid(null);
+                await _gridRef200.R_RefreshGrid(null);
             }
             catch (Exception ex)
             {
@@ -41,7 +42,7 @@ namespace SAB00600Front
 
             try
             {
-                await CustomerViewModel.GetCustomerList();
+                await EmployeeViewModel.GetEmployeeList();
             }
             catch (Exception ex)
             {
@@ -57,10 +58,10 @@ namespace SAB00600Front
 
             try
             {
-                var loParam = (SAB00600DTO)eventArgs.Data;
-                await CustomerViewModel.GetCustomerById(loParam.CustomerID);
+                var loParam = R_FrontUtility.ConvertObjectToObject<SAB00100DTO>(eventArgs.Data);
+                await EmployeeViewModel.GetEmployeeList();
 
-                eventArgs.Result = CustomerViewModel.Customer;
+                eventArgs.Result = EmployeeViewModel.Employee;
             }
             catch (Exception ex)
             {
@@ -84,12 +85,10 @@ namespace SAB00600Front
 
         private void Grid_AfterAdd(R_AfterAddEventArgs eventArgs)
         {
-            eventArgs.Data = new SAB00600DTO
+            eventArgs.Data = new SAB00100DTO
             {
-                CustomerID = "HRD",
-                CompanyName = "null",
-                ContactName = "null",
-
+                FirstName = "null",
+                LastName = "null",
             };
         }
 
@@ -99,10 +98,10 @@ namespace SAB00600Front
 
             try
             {
-                var loData = (SAB00600DTO)eventArgs.Data;
+                var loData = (SAB00100GridDTO)eventArgs.Data;
 
-                if (string.IsNullOrWhiteSpace(loData.CustomerID))
-                    loEx.Add("001", "Customer Id cannot be null.");
+                if (string.IsNullOrWhiteSpace(loData.FirstName))
+                    loEx.Add("001", "Employee First NAme cannot be null.");
             }
             catch (Exception ex)
             {
@@ -118,8 +117,8 @@ namespace SAB00600Front
         {
             if (eventArgs.ConductorMode == R_eConductorMode.Add)
             {
-                var loData = (SAB00600DTO)eventArgs.Data;
-                loData.Address = "Depok";
+                var loData = (SAB00100GridDTO)eventArgs.Data;
+                loData.FirstName = "Depok";
             }
         }
 
@@ -129,11 +128,11 @@ namespace SAB00600Front
 
             try
             {
-                await CustomerViewModel.SaveCustomer(
-                    (SAB00600DTO)eventArgs.Data,
+                await EmployeeViewModel.SaveEmployee(
+                    (SAB00100DTO)eventArgs.Data,
                     (eCRUDMode)eventArgs.ConductorMode);
 
-                eventArgs.Result = CustomerViewModel.Customer;
+                eventArgs.Result = EmployeeViewModel.EmployeeList;
             }
             catch (Exception ex)
             {
@@ -158,8 +157,8 @@ namespace SAB00600Front
 
             try
             {
-                var loData = (SAB00600DTO)eventArgs.Data;
-                await CustomerViewModel.DeleteCustomer(loData.CustomerID);
+                var loData = (SAB00100GridDTO)eventArgs.Data;
+                await EmployeeViewModel.DeleteEmployee(loData.EmployeeID);
             }
             catch (Exception ex)
             {
@@ -176,7 +175,7 @@ namespace SAB00600Front
 
         private void R_Display()
         {
-            
+         
         }
     }
 }

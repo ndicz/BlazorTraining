@@ -1,5 +1,4 @@
 ﻿using R_BlazorFrontEnd;
-using R_BlazorFrontEnd.Enums;
 using R_BlazorFrontEnd.Exceptions;
 using R_CommonFrontBackAPI;
 using SAB00600Common.DTOs;
@@ -11,14 +10,11 @@ namespace SAB00600Model
 {
     public class SAB00600ViewModel : R_ViewModel<SAB00600DTO>
     {
-        private SAB00600Model _model = null;
+        private SAB00600Model _model = new SAB00600Model();
 
         public ObservableCollection<SAB00600DTO> CustomerList { get; set; } = new ObservableCollection<SAB00600DTO>();
 
-        public SAB00600ViewModel()
-        {
-            _model = new SAB00600Model();
-        }
+        public SAB00600DTO Customer = new SAB00600DTO();
 
         public async Task GetCustomerList()
         {
@@ -26,8 +22,8 @@ namespace SAB00600Model
 
             try
             {
-                var loResult = await _model.GetCustomerListAsync();
-                CustomerList = new ObservableCollection<SAB00600DTO>(loResult);
+                var loResult = await _model.GetAllCustomerAsync();
+                CustomerList = new ObservableCollection<SAB00600DTO>(loResult.Data);
             }
             catch (Exception ex)
             {
@@ -37,15 +33,16 @@ namespace SAB00600Model
             loEx.ThrowExceptionIfErrors();
         }
 
-        public async Task<SAB00600DTO> GetCustomerById(string customerId)
+        public async Task GetCustomerById(string customerId)
         {
             var loEx = new R_Exception();
-            SAB00600DTO loResult = null;
 
             try
             {
                 var loParam = new SAB00600DTO { CustomerID = customerId };
-                loResult = await _model.GetCustomerAsync(loParam);
+                var loResult = await _model.R_ServiceGetRecordAsync(loParam);
+
+                Customer = loResult;
             }
             catch (Exception ex)
             {
@@ -53,18 +50,17 @@ namespace SAB00600Model
             }
 
             loEx.ThrowExceptionIfErrors();
-
-            return loResult;
         }
 
-        public async Task<SAB00600DTO> SaveCustomer(SAB00600DTO poNewEntity, R_eConductorMode peConductorMode)
+        public async Task SaveCustomer(SAB00600DTO poNewEntity, eCRUDMode peCRUDMode)
         {
             var loEx = new R_Exception();
-            SAB00600DTO loResult = null;
 
             try
             {
-                loResult = await _model.SaveCustomerAsync(poNewEntity, (eCRUDMode)peConductorMode);
+                var loResult = await _model.R_ServiceSaveAsync(poNewEntity, peCRUDMode);
+
+                Customer = loResult;
             }
             catch (Exception ex)
             {
@@ -72,8 +68,6 @@ namespace SAB00600Model
             }
 
             loEx.ThrowExceptionIfErrors();
-
-            return loResult;
         }
 
         public async Task DeleteCustomer(string customerId)
@@ -83,7 +77,7 @@ namespace SAB00600Model
             try
             {
                 var loParam = new SAB00600DTO { CustomerID = customerId };
-                await _model.DeleteCustomerAsync(loParam);
+                await _model.R_ServiceDeleteAsync(loParam);
             }
             catch (Exception ex)
             {
