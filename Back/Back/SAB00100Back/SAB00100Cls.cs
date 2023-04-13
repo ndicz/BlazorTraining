@@ -64,7 +64,8 @@ namespace SAB00100Back
                 if (poCRUDMode == eCRUDMode.AddMode)
                 {
                     lcQuery = "INSERT INTO Employees (FirstName, LastName, Address, City, Country) ";
-                    lcQuery += $"VALUES ('{poNewEntity.FirstName}', '{poNewEntity.LastName}', '{poNewEntity.Address}', '{poNewEntity.City}', '{poNewEntity.Country}') ";
+                    lcQuery +=
+                        $"VALUES ('{poNewEntity.FirstName}', '{poNewEntity.LastName}', '{poNewEntity.Address}', '{poNewEntity.City}', '{poNewEntity.Country}') ";
                     lcQuery += "SELECT SCOPE_IDENTITY()";
 
                     var liResult = loDb.SqlExecObjectQuery<decimal>(lcQuery, loConn, true);
@@ -74,8 +75,10 @@ namespace SAB00100Back
                     return;
                 }
 
-                lcQuery = $"UPDATE Employees SET FirstName = '{poNewEntity.FirstName}', LastName = '{poNewEntity.LastName}', ";
-                lcQuery += $"Address = '{poNewEntity.Address}', City = '{poNewEntity.City}', Country = '{poNewEntity.Country}'";
+                lcQuery =
+                    $"UPDATE Employees SET FirstName = '{poNewEntity.FirstName}', LastName = '{poNewEntity.LastName}', ";
+                lcQuery +=
+                    $"Address = '{poNewEntity.Address}', City = '{poNewEntity.City}', Country = '{poNewEntity.Country}'";
                 lcQuery += $"WHERE EmployeeID = '{poNewEntity.EmployeeID}' ";
                 loDb.SqlExecNonQuery(lcQuery, loConn, true);
             }
@@ -109,5 +112,29 @@ namespace SAB00100Back
 
             return loResult;
         }
+
+        public List<SAB00100DTO> GetAllEmployeeStream()
+        {
+            var loEx = new R_Exception();
+            List<SAB00100DTO> loResult = null;
+
+            try
+            {
+                var loDb = new R_Db();
+                var loConn = loDb.GetConnection("NorthwindConnectionString");
+                var lcQuery = "SELECT * FROM Employees (NOLOCK)";
+                loResult = loDb.SqlExecObjectQuery<SAB00100DTO>(lcQuery, loConn, true);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+
+            return loResult;
+        }
+
+
     }
 }

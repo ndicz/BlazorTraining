@@ -100,5 +100,38 @@ namespace SAB00100Controller
 
             return loRtn;
         }
+
+        public IAsyncEnumerable<SAB00100DTO> GetEmployeeStream()
+        {
+            var loEx = new R_Exception();
+            IAsyncEnumerable<SAB00100DTO> loRtn = null;
+
+            try
+            {
+                var loCls = new SAB00100Cls();
+                var loResult = loCls.GetAllEmployeeStream();
+                loRtn = GetEmpStream(loResult);
+            }
+            catch (Exception ex)
+            {
+                loEx.Add(ex);
+            }
+
+            loEx.ThrowExceptionIfErrors();
+            return loRtn;
+        }
+
+        [HttpPost]
+
+   
+
+        private async IAsyncEnumerable<SAB00100DTO> GetEmpStream(List<SAB00100DTO> poParam)
+        {
+            foreach (SAB00100DTO item in poParam)
+            {
+                await Task.Delay(1000);
+                yield return item;
+            }
+        }
     }
 }

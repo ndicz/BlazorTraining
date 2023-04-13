@@ -124,7 +124,7 @@ namespace SAB01300Controller
 
             return loRtn;
         }
-
+      
         private async IAsyncEnumerable<SAB01300DTO> GetCategoryStream(List<SAB01300DTO> poParameter)
         {
             foreach (SAB01300DTO item in poParameter)
