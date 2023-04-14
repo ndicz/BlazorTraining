@@ -15,7 +15,7 @@ namespace SAB01300Model.ViewModels
         public ObservableCollection<SAB01300DTO> CategoryList { get; set; } = new ObservableCollection<SAB01300DTO>();
 
         public SAB01300DTO Category = new SAB01300DTO();
-
+            
         public async Task GetCategoryList()
         {
             var loEx = new R_Exception();

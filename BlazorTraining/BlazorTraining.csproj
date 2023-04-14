@@ -25,6 +25,7 @@
     <ProjectReference Include="..\Front\Front\SAB01300Front\SAB01300Front.csproj" />
     <ProjectReference Include="..\Front\Front\SAB01400Front\SAB01400Front.csproj" />
     <ProjectReference Include="..\SAB00100Front\SAB00100Front.csproj" />
+    <ProjectReference Include="..\SAB00400Front\SAB00400Front.csproj" />
   </ItemGroup>
 
   <ItemGroup>

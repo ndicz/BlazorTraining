@@ -13,22 +13,23 @@ namespace SAB00400Controller
     public class SAB00400Controller : ControllerBase, ISAB00400
     {
         [HttpPost]
-        public R_ServiceGetRecordResultDTO<SAB00410DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<SAB00410DTO> poParameter)
+        public R_ServiceGetRecordResultDTO<SAB00400DTO> R_ServiceGetRecord(R_ServiceGetRecordParameterDTO<SAB00400DTO> poParameter)
         {
             throw new NotImplementedException();
         }
         [HttpPost]
-        public R_ServiceSaveResultDTO<SAB00410DTO> R_ServiceSave(R_ServiceSaveParameterDTO<SAB00410DTO> poParameter)
+        public R_ServiceSaveResultDTO<SAB00400DTO> R_ServiceSave(R_ServiceSaveParameterDTO<SAB00400DTO> poParameter)
         {
             throw new NotImplementedException();
         }
         [HttpPost]
-        public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<SAB00410DTO> poParameter)
+        public R_ServiceDeleteResultDTO R_ServiceDelete(R_ServiceDeleteParameterDTO<SAB00400DTO> poParameter)
         {
             throw new NotImplementedException();
         }
+        
         [HttpPost]
-        public SAB00400ListDTO<SAB00400DTO> GetAllTerritory()
+        public SAB00400ListDTO<SAB00400DTO> GetAllRegion()
         {
             var loEx = new R_Exception();
             SAB00400ListDTO<SAB00400DTO> loRtn = null;

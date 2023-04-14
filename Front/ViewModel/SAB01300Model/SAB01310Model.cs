@@ -14,7 +14,8 @@ namespace SAB01300Model
         private const string DEFAULT_HTTP_NAME = "R_DefaultServiceUrl";
         private const string DEFAULT_SERVICEPOINT_NAME = "api/SAB01310";
 
-        public SAB01310Model(string pcHttpClientName = DEFAULT_HTTP_NAME,
+        public SAB01310Model(
+            string pcHttpClientName = DEFAULT_HTTP_NAME,
             string pcRequestServiceEndPoint = DEFAULT_SERVICEPOINT_NAME,
             bool plSendWithContext = true,
             bool plSendWithToken = false)
@@ -35,12 +36,12 @@ namespace SAB01300Model
 
             try
             {
-                R_HTTPClientWrapper.httpClientName = _HttpClientName;
-                loRtn = await R_HTTPClientWrapper.R_APIRequestObject<SAB01300ListDTO<SAB01310DTO>>(
-                    _RequestServiceEndPoint,
-                    nameof(ISAB01310.GetAllProduct),
-                    _SendWithContext,
-                    _SendWithToken);
+                    R_HTTPClientWrapper.httpClientName = _HttpClientName;
+                    loRtn = await R_HTTPClientWrapper.R_APIRequestObject<SAB01300ListDTO<SAB01310DTO>>(
+                        _RequestServiceEndPoint,
+                        nameof(ISAB01310.GetAllProduct),
+                        _SendWithContext,
+                        _SendWithToken);
             }
             catch (Exception ex)
             {
