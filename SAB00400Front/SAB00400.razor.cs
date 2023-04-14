@@ -79,6 +79,8 @@ namespace SAB00400Front
             }
         }
 
+        
+
         private async Task Grid_ServiceGetRecord(R_ServiceGetRecordEventArgs eventArgs)
         {
             var loEx = new R_Exception();
